@@ -12,13 +12,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if resp, err := tv.SendCommand(tv.AVMD.COMMAND, tv.AVMD.TOGGLE); err != nil {
+	avpos := tv.AV_POSITION
+
+	if resp, err := tv.SendCommand(avpos.COMMAND, avpos.TOGGLE); err != nil {
 		log.Fatal(err)
 	} else {
 		log.Println(resp)
 	}
 
-	if resp, err := tv.SendCommand(tv.AVMD.COMMAND, tv.AVMD.STATUS); err != nil {
+	if resp, err := tv.SendCommand(avpos.COMMAND, avpos.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
 		log.Println(resp)

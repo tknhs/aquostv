@@ -2,15 +2,15 @@ package aquostv
 
 import "errors"
 
-type POWER struct {
+type AQUOS_POWER struct {
 	COMMAND string
 	STATUS  string
 	OFF     string
 	ON      string
 }
 
-func initPOWER() *POWER {
-	return &POWER{
+func initPower() *AQUOS_POWER {
+	return &AQUOS_POWER{
 		COMMAND: "POWR",
 		STATUS:  "????",
 		OFF:     "0000",

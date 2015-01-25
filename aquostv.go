@@ -10,12 +10,12 @@ import (
 )
 
 type TV struct {
-	SerialObject io.ReadWriteCloser
-	readResponse string
-	POWR         *POWER
-	INP3         *INPUT_SELECTION_3
-	INP4         *INPUT_SELECTION_4
-	AVMD         *AV_POSITION
+	SerialObject    io.ReadWriteCloser
+	readResponse    string
+	POWER           *AQUOS_POWER
+	INPUT_SWITCHING *AQUOS_INPUT_SWITCHING
+	INPUT_SELECTION *AQUOS_INPUT_SELECTION
+	AV_POSITION     *AQUOS_AV_POSITION
 }
 
 func New(name string) (*TV, error) {
@@ -27,11 +27,11 @@ func New(name string) (*TV, error) {
 		return &TV{}, err
 	}
 	return &TV{
-		SerialObject: s,
-		POWR:         initPOWER(),
-		INP3:         initINPUTSELECTION3(),
-		INP4:         initINPUTSELECTION4(),
-		AVMD:         initAVPOSITION(),
+		SerialObject:    s,
+		POWER:           initPower(),
+		INPUT_SWITCHING: initInputSwitching(),
+		INPUT_SELECTION: initInputSelection(),
+		AV_POSITION:     initAVPosition(),
 	}, nil
 }
 
@@ -71,14 +71,23 @@ func (tv *TV) SendCommand(aPart, bPart string) (string, error) {
 	tv.readResponse = strings.Split(resp, "\r")[0]
 
 	switch aPart {
-	case tv.POWR.COMMAND:
+	// power
+	case tv.POWER.COMMAND:
 		resp, err = tv.power()
-	case tv.INP3.COMMAND:
-		resp, err = tv.inputselection3()
-	case tv.INP4.COMMAND:
-		resp, err = tv.inputselection4()
-	case tv.AVMD.COMMAND:
-		resp, err = tv.avposition()
+	// input switching
+	case tv.INPUT_SWITCHING.ITGD.COMMAND,
+		tv.INPUT_SWITCHING.ITVD.COMMAND,
+		tv.INPUT_SWITCHING.IDEG.COMMAND:
+		resp, err = tv.inputSwitchingDefault()
+	case tv.INPUT_SWITCHING.IAVD.COMMAND:
+		resp, err = tv.inputSwitchingInput()
+	// input selection
+	case tv.INPUT_SELECTION.INP3.COMMAND,
+		tv.INPUT_SELECTION.INP4.COMMAND:
+		resp, err = tv.inputSelection()
+	// av position
+	case tv.AV_POSITION.COMMAND:
+		resp, err = tv.avPosition()
 	}
 	return resp, err
 }

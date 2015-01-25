@@ -2,7 +2,7 @@ package aquostv
 
 import "errors"
 
-type AV_POSITION struct {
+type AQUOS_AV_POSITION struct {
 	COMMAND       string
 	STATUS        string
 	TOGGLE        string
@@ -15,8 +15,8 @@ type AV_POSITION struct {
 	PC            string
 }
 
-func initAVPOSITION() *AV_POSITION {
-	return &AV_POSITION{
+func initAVPosition() *AQUOS_AV_POSITION {
+	return &AQUOS_AV_POSITION{
 		COMMAND:       "AVMD",
 		STATUS:        "????",
 		TOGGLE:        "0000",
@@ -30,7 +30,7 @@ func initAVPOSITION() *AV_POSITION {
 	}
 }
 
-func (tv *TV) avposition() (string, error) {
+func (tv *TV) avPosition() (string, error) {
 	switch tv.readResponse {
 	case "OK":
 		return tv.readResponse, nil

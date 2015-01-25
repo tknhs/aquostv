@@ -12,25 +12,28 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if resp, err := tv.SendCommand(tv.INP3.COMMAND, tv.INP3.AUTO); err != nil {
+	inp3 := tv.INPUT_SELECTION.INP3
+	inp4 := tv.INPUT_SELECTION.INP4
+
+	// INP3
+	if resp, err := tv.SendCommand(inp3.COMMAND, inp3.AUTO); err != nil {
+		log.Fatal(err)
+	} else {
+		log.Println(resp)
+	}
+	if resp, err := tv.SendCommand(inp3.COMMAND, inp3.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
 		log.Println(resp)
 	}
 
-	if resp, err := tv.SendCommand(tv.INP3.COMMAND, tv.INP3.STATUS); err != nil {
+	// INP4
+	if resp, err := tv.SendCommand(inp4.COMMAND, inp4.AUTO); err != nil {
 		log.Fatal(err)
 	} else {
 		log.Println(resp)
 	}
-
-	if resp, err := tv.SendCommand(tv.INP4.COMMAND, tv.INP4.AUTO); err != nil {
-		log.Fatal(err)
-	} else {
-		log.Println(resp)
-	}
-
-	if resp, err := tv.SendCommand(tv.INP4.COMMAND, tv.INP4.STATUS); err != nil {
+	if resp, err := tv.SendCommand(inp4.COMMAND, inp4.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
 		log.Println(resp)
