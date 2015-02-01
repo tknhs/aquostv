@@ -1,9 +1,9 @@
 package aquostv
 
 import (
+	"errors"
 	"fmt"
 	"io"
-	"strings"
 	"time"
 
 	"github.com/tarm/goserial"
@@ -57,7 +57,7 @@ func (tv *TV) readSerial() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(buf[:n]), nil
+	return string(buf[:n-1]), nil
 }
 
 func (tv *TV) SendCommand(aPart, bPart string) (string, error) {
@@ -68,7 +68,7 @@ func (tv *TV) SendCommand(aPart, bPart string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	tv.readResponse = strings.Split(resp, "\r")[0]
+	tv.readResponse = resp
 
 	switch aPart {
 	// power
@@ -88,6 +88,9 @@ func (tv *TV) SendCommand(aPart, bPart string) (string, error) {
 	// av position
 	case tv.AV_POSITION.COMMAND:
 		resp, err = tv.avPosition()
+	default:
+		resp = ""
+		err = errors.New("Invalid Command.")
 	}
 	return resp, err
 }
