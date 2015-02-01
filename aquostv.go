@@ -16,6 +16,7 @@ type TV struct {
 	INPUT_SWITCHING *AQUOS_INPUT_SWITCHING
 	INPUT_SELECTION *AQUOS_INPUT_SELECTION
 	AV_POSITION     *AQUOS_AV_POSITION
+	VOLUME          *AQUOS_VOLUME
 }
 
 func New(name string) (*TV, error) {
@@ -32,6 +33,7 @@ func New(name string) (*TV, error) {
 		INPUT_SWITCHING: initInputSwitching(),
 		INPUT_SELECTION: initInputSelection(),
 		AV_POSITION:     initAVPosition(),
+		VOLUME:          initVolume(),
 	}, nil
 }
 
@@ -88,6 +90,9 @@ func (tv *TV) SendCommand(aPart, bPart string) (string, error) {
 	// av position
 	case tv.AV_POSITION.COMMAND:
 		resp, err = tv.avPosition()
+	// volume
+	case tv.VOLUME.COMMAND:
+		resp, err = tv.volume()
 	default:
 		resp = ""
 		err = errors.New("Invalid Command.")
