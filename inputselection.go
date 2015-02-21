@@ -50,21 +50,21 @@ func initInputSelection4() *INPUT_SELECTION_4 {
 	}
 }
 
-func (tv *TV) inputSelection() (string, error) {
-	switch tv.readResponse {
+func (tv *TV) inputSelection() {
+	switch tv.responseRaw {
 	case "OK":
-		return tv.readResponse, nil
+		tv.responseDescription = "OK"
 	case "ERR":
-		return tv.readResponse, errors.New("Response ERROR.")
+		tv.responseDescription = "ERR"
 	case "0":
-		return "AUTO", nil
+		tv.responseDescription = "AUTO"
 	case "1":
-		return "D_TERMINAL", nil
+		tv.responseDescription = "D_TERMINAL"
 	case "3":
-		return "S_TERMINAL", nil
+		tv.responseDescription = "S_TERMINAL"
 	case "4":
-		return "VIDEO_TERMINAL", nil
+		tv.responseDescription = "VIDEO_TERMINAL"
 	default:
-		return "", errors.New("Unknown ERROR.")
+		tv.responseError = errors.New("Unknown ERROR.")
 	}
 }

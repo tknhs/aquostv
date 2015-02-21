@@ -34,31 +34,31 @@ func initScreenSize() *AQUOS_SCREEN_SIZE {
 	}
 }
 
-func (tv *TV) screenSize() (string, error) {
-	switch tv.readResponse {
+func (tv *TV) screenSize() {
+	switch tv.responseRaw {
 	case "OK":
-		return tv.readResponse, nil
+		tv.responseDescription = "OK"
 	case "ERR":
-		return tv.readResponse, errors.New("Response ERROR.")
+		tv.responseDescription = "ERR"
 	case "1":
-		return "NORMAL", nil
+		tv.responseDescription = "NORMAL"
 	case "2":
-		return "SMART_ZOOM", nil
+		tv.responseDescription = "SMART_ZOOM"
 	case "3":
-		return "WIDE", nil
+		tv.responseDescription = "WIDE"
 	case "4":
-		return "CINEMA", nil
+		tv.responseDescription = "CINEMA"
 	case "5":
-		return "FULL", nil
+		tv.responseDescription = "FULL"
 	case "6":
-		return "FULL_1", nil
+		tv.responseDescription = "FULL_1"
 	case "7":
-		return "FULL_2", nil
+		tv.responseDescription = "FULL_2"
 	case "8":
-		return "UNDER_SCAN", nil
+		tv.responseDescription = "UNDER_SCAN"
 	case "9":
-		return "DOT_BY_DOT", nil
+		tv.responseDescription = "DOT_BY_DOT"
 	default:
-		return "", errors.New("Unknown ERROR.")
+		tv.responseError = errors.New("Unknown ERROR.")
 	}
 }

@@ -30,27 +30,27 @@ func initAVPosition() *AQUOS_AV_POSITION {
 	}
 }
 
-func (tv *TV) avPosition() (string, error) {
-	switch tv.readResponse {
+func (tv *TV) avPosition() {
+	switch tv.responseRaw {
 	case "OK":
-		return tv.readResponse, nil
+		tv.responseDescription = "OK"
 	case "ERR":
-		return tv.readResponse, errors.New("Response ERROR.")
+		tv.responseDescription = "ERR"
 	case "1":
-		return "NORMAL", nil
+		tv.responseDescription = "NORMAL"
 	case "2":
-		return "MOVIE", nil
+		tv.responseDescription = "MOVIE"
 	case "3":
-		return "GAME", nil
+		tv.responseDescription = "GAME"
 	case "4":
-		return "AV_MEMORY", nil
+		tv.responseDescription = "AV_MEMORY"
 	case "5":
-		return "DYNAMIC_FIXED", nil
+		tv.responseDescription = "DYNAMIC_FIXED"
 	case "6":
-		return "DYNAMIC", nil
+		tv.responseDescription = "DYNAMIC"
 	case "7":
-		return "PC", nil
+		tv.responseDescription = "PC"
 	default:
-		return "", errors.New("Unknown ERROR.")
+		tv.responseError = errors.New("Unknown ERROR.")
 	}
 }

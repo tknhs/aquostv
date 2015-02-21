@@ -14,25 +14,25 @@ func main() {
 
 	power := tv.POWER
 
-	if resp, err := tv.SendCommand(power.COMMAND, power.OFF); err != nil {
+	if raw, desc, err := tv.SendCommand(power.COMMAND, power.OFF); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
-	if resp, err := tv.SendCommand(power.COMMAND, power.STATUS); err != nil {
+	if raw, desc, err := tv.SendCommand(power.COMMAND, power.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 
-	if resp, err := tv.SendCommand(power.COMMAND, power.ON); err != nil {
+	if raw, desc, err := tv.SendCommand(power.COMMAND, power.ON); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
-	if resp, err := tv.SendCommand(power.COMMAND, power.STATUS); err != nil {
+	if raw, desc, err := tv.SendCommand(power.COMMAND, power.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 }

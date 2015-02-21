@@ -76,34 +76,34 @@ func initInputSwitchingBroadcastSwitching() *INPUT_SWITCHING_BROADCAST_SWITCHING
 	}
 }
 
-func (tv *TV) inputSwitchingDefault() (string, error) {
-	switch tv.readResponse {
+func (tv *TV) inputSwitchingDefault() {
+	switch tv.responseRaw {
 	case "OK":
-		return tv.readResponse, nil
+		tv.responseDescription = "OK"
 	case "ERR":
-		return tv.readResponse, errors.New("Response ERROR.")
+		tv.responseDescription = "ERR"
 	default:
-		return "", errors.New("Unknown ERROR.")
+		tv.responseError = errors.New("Unknown ERROR.")
 	}
 }
 
-func (tv *TV) inputSwitchingInput() (string, error) {
-	switch tv.readResponse {
+func (tv *TV) inputSwitchingInput() {
+	switch tv.responseRaw {
 	case "OK":
-		return tv.readResponse, nil
+		tv.responseDescription = "OK"
 	case "ERR":
-		return tv.readResponse, errors.New("Response ERROR.")
+		tv.responseDescription = "ERR"
 	case "1":
-		return "INPUT_1", nil
+		tv.responseDescription = "INPUT_1"
 	case "2":
-		return "INPUT_2", nil
+		tv.responseDescription = "INPUT_2"
 	case "3":
-		return "INPUT_3", nil
+		tv.responseDescription = "INPUT_3"
 	case "4":
-		return "INPUT_4", nil
+		tv.responseDescription = "INPUT_4"
 	case "5":
-		return "INPUT_5", nil
+		tv.responseDescription = "INPUT_5"
 	default:
-		return "", errors.New("Unknown ERROR.")
+		tv.responseError = errors.New("Unknown ERROR.")
 	}
 }

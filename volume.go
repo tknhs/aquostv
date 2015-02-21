@@ -139,19 +139,20 @@ func initVolume() *AQUOS_VOLUME {
 	}
 }
 
-func (tv *TV) volume() (string, error) {
+func (tv *TV) volume() {
 	re := regexp.MustCompile("[0-9]+")
-	switch tv.readResponse {
+	switch tv.responseRaw {
 	case "OK":
-		return tv.readResponse, nil
+		tv.responseDescription = "OK"
 	case "ERR":
-		return tv.readResponse, errors.New("Response ERROR.")
-	case re.FindString(tv.readResponse):
-		if len(tv.readResponse) == 1 {
-			tv.readResponse = "0" + tv.readResponse
+		tv.responseDescription = "ERR"
+	case re.FindString(tv.responseRaw):
+		val := tv.responseRaw
+		if len(val) == 1 {
+			val = "0" + val
 		}
-		return "VOLUME_" + tv.readResponse, nil
+		tv.responseDescription = "VOLUME_" + val
 	default:
-		return "", errors.New("Unknown ERROR.")
+		tv.responseError = errors.New("Unknown ERROR.")
 	}
 }

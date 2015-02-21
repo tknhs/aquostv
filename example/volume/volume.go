@@ -15,32 +15,31 @@ func main() {
 
 	volm := tv.VOLUME
 
-	resp, err := tv.SendCommand(volm.COMMAND, volm.STATUS)
+	raw, desc, err := tv.SendCommand(volm.COMMAND, volm.STATUS)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(resp)
-	nowVolume := strings.Split(resp, "_")[1]
+	log.Println(raw, desc)
 
-	if resp, err := tv.SendCommand(volm.COMMAND, volm.VOLUME_05); err != nil {
+	if raw, desc, err := tv.SendCommand(volm.COMMAND, volm.VOLUME_05); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
-	if resp, err := tv.SendCommand(volm.COMMAND, volm.STATUS); err != nil {
+	if raw, desc, err := tv.SendCommand(volm.COMMAND, volm.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 
-	if resp, err := tv.SendCommand(volm.COMMAND, "00"+nowVolume); err != nil {
+	if raw, desc, err := tv.SendCommand(volm.COMMAND, strings.Repeat("0", 4-len(raw))+raw); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
-	if resp, err := tv.SendCommand(volm.COMMAND, volm.STATUS); err != nil {
+	if raw, desc, err := tv.SendCommand(volm.COMMAND, volm.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 }

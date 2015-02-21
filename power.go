@@ -18,17 +18,17 @@ func initPower() *AQUOS_POWER {
 	}
 }
 
-func (tv *TV) power() (string, error) {
-	switch tv.readResponse {
+func (tv *TV) power() {
+	switch tv.responseRaw {
 	case "OK":
-		return tv.readResponse, nil
+		tv.responseDescription = "OK"
 	case "ERR":
-		return tv.readResponse, errors.New("Response ERROR.")
+		tv.responseDescription = "ERR"
 	case "0":
-		return "OFF", nil
+		tv.responseDescription = "OFF"
 	case "1":
-		return "ON", nil
+		tv.responseDescription = "ON"
 	default:
-		return "", errors.New("Unknown ERROR.")
+		tv.responseError = errors.New("Unknown ERROR.")
 	}
 }

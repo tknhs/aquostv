@@ -14,14 +14,14 @@ func main() {
 
 	wide := tv.SCREEN_SIZE
 
-	if resp, err := tv.SendCommand(wide.COMMAND, wide.TOGGLE); err != nil {
+	if raw, desc, err := tv.SendCommand(wide.COMMAND, wide.TOGGLE); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
-	if resp, err := tv.SendCommand(wide.COMMAND, wide.STATUS); err != nil {
+	if raw, desc, err := tv.SendCommand(wide.COMMAND, wide.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 }

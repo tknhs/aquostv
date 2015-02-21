@@ -18,36 +18,36 @@ func main() {
 	iavd := tv.INPUT_SWITCHING.IAVD
 
 	// ITGD
-	if resp, err := tv.SendCommand(itgd.COMMAND, itgd.TOGGLE); err != nil {
+	if raw, desc, err := tv.SendCommand(itgd.COMMAND, itgd.TOGGLE); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 
 	// ITVD
-	if resp, err := tv.SendCommand(itvd.COMMAND, itvd.DEFAULT); err != nil {
+	if raw, desc, err := tv.SendCommand(itvd.COMMAND, itvd.DEFAULT); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 
 	// IDEG
-	if resp, err := tv.SendCommand(ideg.COMMAND, ideg.TOGGLE); err != nil {
+	if raw, desc, err := tv.SendCommand(ideg.COMMAND, ideg.TOGGLE); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 
 	// IAVD
-	if resp, err := tv.SendCommand(iavd.COMMAND, iavd.INPUT_2); err != nil {
+	if raw, desc, err := tv.SendCommand(iavd.COMMAND, iavd.INPUT_2); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 
-	if resp, err := tv.SendCommand(iavd.COMMAND, iavd.STATUS); err != nil {
+	if raw, desc, err := tv.SendCommand(iavd.COMMAND, iavd.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 }

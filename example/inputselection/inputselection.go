@@ -16,26 +16,26 @@ func main() {
 	inp4 := tv.INPUT_SELECTION.INP4
 
 	// INP3
-	if resp, err := tv.SendCommand(inp3.COMMAND, inp3.AUTO); err != nil {
+	if raw, desc, err := tv.SendCommand(inp3.COMMAND, inp3.AUTO); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
-	if resp, err := tv.SendCommand(inp3.COMMAND, inp3.STATUS); err != nil {
+	if raw, desc, err := tv.SendCommand(inp3.COMMAND, inp3.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 
 	// INP4
-	if resp, err := tv.SendCommand(inp4.COMMAND, inp4.AUTO); err != nil {
+	if raw, desc, err := tv.SendCommand(inp4.COMMAND, inp4.AUTO); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
-	if resp, err := tv.SendCommand(inp4.COMMAND, inp4.STATUS); err != nil {
+	if raw, desc, err := tv.SendCommand(inp4.COMMAND, inp4.STATUS); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Println(resp)
+		log.Println(raw, desc)
 	}
 }
