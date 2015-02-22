@@ -23,6 +23,7 @@ type TV struct {
 	MUTE                *AQUOS_MUTE
 	SURROUND            *AQUOS_SURROUND
 	AUDIO_SWITCHING     *AQUOS_AUDIO_SWITCHING
+	OFF_TIMER           *AQUOS_OFF_TIMER
 }
 
 func New(name string) (*TV, error) {
@@ -44,6 +45,7 @@ func New(name string) (*TV, error) {
 		MUTE:            initMute(),
 		SURROUND:        initSurround(),
 		AUDIO_SWITCHING: initAudioSwitching(),
+		OFF_TIMER:       initOffTimer(),
 	}, nil
 }
 
@@ -120,6 +122,9 @@ func (tv *TV) SendCommand(aPart, bPart string) (string, string, error) {
 	// audio switching
 	case tv.AUDIO_SWITCHING.COMMAND:
 		tv.audioSwitching()
+	// off timer
+	case tv.OFF_TIMER.COMMAND:
+		tv.offTimer()
 	default:
 		tv.responseError = errors.New("Invalid Command.")
 	}
