@@ -20,6 +20,7 @@ type TV struct {
 	AV_POSITION         *AQUOS_AV_POSITION
 	VOLUME              *AQUOS_VOLUME
 	SCREEN_SIZE         *AQUOS_SCREEN_SIZE
+	MUTE                *AQUOS_MUTE
 }
 
 func New(name string) (*TV, error) {
@@ -38,6 +39,7 @@ func New(name string) (*TV, error) {
 		AV_POSITION:     initAVPosition(),
 		VOLUME:          initVolume(),
 		SCREEN_SIZE:     initScreenSize(),
+		MUTE:            initMute(),
 	}, nil
 }
 
@@ -105,6 +107,9 @@ func (tv *TV) SendCommand(aPart, bPart string) (string, string, error) {
 	// screen size
 	case tv.SCREEN_SIZE.COMMAND:
 		tv.screenSize()
+		// mute
+	case tv.MUTE.COMMAND:
+		tv.mute()
 	default:
 		tv.responseError = errors.New("Invalid Command.")
 	}
