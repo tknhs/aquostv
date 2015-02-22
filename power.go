@@ -25,9 +25,9 @@ func (tv *TV) power() {
 	case "ERR":
 		tv.responseDescription = "ERR"
 	case "0":
-		tv.responseDescription = "OFF"
+		tv.responseDescription = "POWER_OFF"
 	case "1":
-		tv.responseDescription = "ON"
+		tv.responseDescription = "POWER_ON"
 	default:
 		tv.responseError = errors.New("Unknown ERROR.")
 	}
